@@ -1,1 +1,4 @@
 django
+locust
+uvicorn
+gunicorn
