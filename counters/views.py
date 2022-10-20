@@ -1,9 +1,9 @@
 from django.http import HttpResponse
+from django.db.models import F
 from .models import Counter
 
 
 def counter(request, slug):
-    counter = Counter.objects.get_or_create(slug=slug)[0]
-    counter.count += 1
-    counter.save()
-    return HttpResponse(counter.count, content_type="text/plain")
+    Counter.objects.get_or_create(slug=slug)
+    Counter.objects.filter(slug=slug).update(count=F("count") + 1)
+    return HttpResponse(Counter.objects.get(slug=slug).count, content_type="text/plain")
