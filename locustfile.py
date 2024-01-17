@@ -23,3 +23,7 @@ class CounterOne(HttpUser):
     @task
     def write(self):
         self.client.post("/write/", next(rows))
+
+    @task
+    def write_after_read(self):
+        self.client.post("/write_after_read/", next(rows))
